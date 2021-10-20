@@ -1,6 +1,6 @@
 % To Prepare channel matrix from RIS-UE and BS-UE and BS_UE
 
-data = load('es_RIS_data.mat');
+data = load('NewData.mat');
 data = data.s;
 
 % Loop over time instances
