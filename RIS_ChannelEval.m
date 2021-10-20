@@ -22,7 +22,7 @@ for p = 1: numel(fn)% To count for all path pls put ''numel(fn)''
     PL_linear = 10 ^ ((PL_dBm-30)/10);
     Phase = Path_data.phase;
     Phase_rad = Phase * pi / 180;
-    Betha = PL_linear* exp(1i*Phase_rad); % channel complex coefficient
+    Betha = sqrt(PL_linear)* exp(1i*Phase_rad); % channel complex coefficient
     
     AOA = Path_data.arrival_phi; % Azimuth of Arrival
     AOA_rad = AOA * pi / 180;
