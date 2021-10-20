@@ -1,0 +1,25 @@
+% To Prepare channel matrix from RIS-UE and BS-UE and BS_UE
+
+data = load('es_RIS_data.mat');
+data = data.s;
+
+% Loop over time instances
+for t = 1:9
+    
+   t_instance = eval(['data.time' num2str(t)]); 
+   [h_RIS1_UE, h_RIS2_UE, h_RIS3_UE, h_RIS4_UE] = channelEval(t_instance,...
+       'RIS_UE_Channel'); % UE-RIS channel 
+   [h_BS_RIS1, h_BS_RIS2, h_BS_RIS3, h_BS_RIS4] = channelEval(t_instance,...
+       'RIS_BS_Channel'); % RIS_BS channel
+   [h_BS_UE,~,~,~] = channelEval(t_instance,'BS_UE_Channel'); % UE_BS chan
+   
+   [h_RIS1_UE, h_RIS2_UE, h_RIS3_UE] = RemoveUser(h_RIS1_UE, h_RIS2_UE, ...
+       h_RIS3_UE);
+   
+   %H_enhanced = h_BS_UE + h_RIS1_UE * h_BS_RIS1 + h_RIS2_UE * h_BS_RIS2 + ...
+    %   h_RIS3_UE * h_BS_RIS3 + h_RIS4_UE * h_BS_RIS4;
+      H_enhanced = h_BS_UE + h_RIS1_UE + h_RIS2_UE  + ...
+       h_RIS3_UE  + h_RIS4_UE ;
+   H = h_BS_UE;
+   
+end
