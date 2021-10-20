@@ -11,7 +11,7 @@ if strcmp(cond, 'RIS_UE_Channel')
     % Loop over all RIS deployed in the cell
     for R_idx = 1 : t_instance.RIS_number
     
-        RIS = eval(['t_instance.RIS_' num2str(R_idx)]); % extract soecific RIS
+        RIS = eval(['t_instance.RIS_' num2str(R_idx)]); % Extract soecific RIS
         fn = fieldnames(RIS); % Extract the name of all fields
     
         Rx_channel = zeros(numel(fn)-1,M_H_Tx*M_V_Tx); % Channel for each RIS
