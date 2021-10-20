@@ -46,7 +46,7 @@ for p = 1: numel(fn)% To count for all path pls put ''numel(fn)''
         AOD_rad,EOD_rad); % Steering vector @ Tx
     
     % Channel Model 
-    H = H + sqrt(N_Tx*N_Rx) * Betha * ...
+    H = H + sqrt(N_Tx*N_Rx/numel(fn)) * Betha * ...
         responseVector * steeringVector'; % [N_Rx * N_Tx]
 
 end
