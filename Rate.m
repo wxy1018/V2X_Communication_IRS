@@ -75,14 +75,16 @@ if Pl_distribution
             figure(4);
             plot(RateSISO,'-o');
             hold on;
-            plot(lRateRIS,'-*');
+            plot(RateRIS,'-*');
             legend('DirectPath1','Through RIS1','DirectPath2','Through RIS2',...
             'DirectPath3','Through RIS3','DirectPath4','Through RIS4',...
             'DirectPath5','Through RIS5','DirectPath6','Through RIS6',...
             'DirectPath7','Through RIS7','DirectPath8','Through RIS8',...
             'DirectPath9','Through RIS9');
-
-        
+            
+            improvement = log10((RateRIS - RateSISO) ./ RateSISO); 
+            figure(5);
+            plot(improvement);
         end
         
     end
