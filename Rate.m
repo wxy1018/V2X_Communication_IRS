@@ -22,7 +22,7 @@ sigma2 = db2pow(sigma2dBm);
 
 angle_distribution = false; % To get the AOD distribution 
 Pl_distribution = true;
-RatePathloss = true;
+RatePathloss = true; % we need to enable first the path loss distribution
 
 if angle_distribution
 
