@@ -20,9 +20,58 @@ N = 64;
 sigma2dBm = -174 + 10*log10(B) + noiseFiguredB;
 sigma2 = db2pow(sigma2dBm);
 
+distance = false;
 angle_distribution = false; % To get the AOD distribution 
-Pl_distribution = true;
-RatePathloss = true; % we need to enable first the path loss distribution
+Pl_distribution = false;
+RatePathloss = false; % enable also Pl_distribution
+checksorting = true;
+
+%% To check if the path are sorted with respect to power or not
+% They are soted this way
+
+if checksorting
+   
+    for t = 1:numel(fieldnames(data))
+        
+         t_instance = eval(['data.time' num2str(t)]);
+         BS = t_instance.BS_1;
+         fn = fieldnames(BS);
+         powersoritng = zeros(25,numel(fn)-5);
+         interactionsorting = Inf(25,numel(fn)-5);
+         
+         for rx_idx = 1:numel(fn)-5
+             rx = BS.(fn{rx_idx+5});
+             for p = 1:numel(fieldnames(rx))
+                path = eval(['rx.path_id' num2str(p)]);
+                powersoritng(p,rx_idx) = path.received_power;
+                interactionsorting(p,rx_idx) = path.interaction;
+             end
+         end
+         
+    end
+end
+
+
+if distance 
+    
+    BS = data.time1.BS_1;
+    fn = fieldnames(BS);
+    RIS_pos = zeros(data.time1.RIS_number,3);
+    
+    BS_pos = BS.RIS_1.path_id1.coordinates(1,:);
+    
+    for i = 1:data.time1.RIS_number
+    RIS_pos(i,:) = BS.(fn{i+1}).path_id1.coordinates(2,:);
+    end
+    
+    distance_BS_RIS = RIS_pos - BS_pos;
+    for i = 1:4
+    distance_BS = sqrt(sum(abs(distance_BS_RIS(1,:)).^2));
+    end
+    
+end
+
+%% To get the angle distribution from BS
 
 if angle_distribution
 
@@ -35,6 +84,9 @@ if angle_distribution
     end
     
 end
+
+%% To get Path loss plot to understand if we gain by deploying RIS 
+% result: Not really as the PL through RIS is very high
 
 if Pl_distribution
 
@@ -91,7 +143,7 @@ if Pl_distribution
     
 end
 
-
+%% To generate the complete channel
 
 RISCoeff = ones(64);
 % Loop over time instances
