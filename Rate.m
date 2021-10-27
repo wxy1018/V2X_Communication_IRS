@@ -24,10 +24,42 @@ distance = false;
 angle_distribution = false; % To get the AOD distribution 
 Pl_distribution = false;
 RatePathloss = false; % enable also Pl_distribution
-checksorting = true;
+checksorting = false; % to check if the powers are sorted 
+RIS_angle_distribution = false;
+RIS_angle_Config = 'LOS'; % 'LOS' or 'all'
 
+%% Distribution of AOD from RIS 
+
+RIS_tot_angles = NaN(1,data.time1.RIS_number);
+
+if RIS_angle_distribution
+   
+    for t = 1:numel(fieldnames(data))
+        
+        % set 'all' if you wanna get all the angles
+        % set 'LOS' if you wanna get the LOS angles
+        RIS_angles = RIS_Azimuth(eval(['data.time' num2str(t)]),RIS_angle_Config); 
+        RIS_tot_angles = [RIS_tot_angles;RIS_angles];
+    end
+    
+    for i = 1:data.time1.RIS_number
+       
+        angles = RIS_tot_angles(:,i);
+        angles = angles(~isnan(angles));
+        %pd = fitdist(angles,'Kernel','Kernel','epanechnikov');
+        %x_values = -180:1:180;
+        %y = pdf(pd,x_values);
+        figure(i);
+        hold on;
+        %plot(x_values,y);
+        histogram(angles,60,'Normalization','probability');
+        legend('all','LOS');
+    end
+    
+end
 %% To check if the path are sorted with respect to power or not
-% They are soted this way
+% They are soted with respect to the powers
+
 
 if checksorting
    
@@ -145,7 +177,7 @@ end
 
 %% To generate the complete channel
 
-RISCoeff = ones(64);
+RISCoeff = eye(64);
 % Loop over time instances
 for t = 1:9
     
