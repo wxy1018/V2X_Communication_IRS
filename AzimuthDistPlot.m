@@ -32,7 +32,7 @@ plot(x_values,y);
 hold on;
 
 figure(2);
-histogram(AOD_total);
+histogram(AOD_total,60);
 hold on;
 
 %% To include the AOA values from RIS to BS
@@ -52,7 +52,7 @@ for Rx_idx = 2:1+RISnum
 end
 
 figure(2);
-histogram(AOD_total);
+histogram(AOD_total,60);
 legend('Without RIS','With RIS');
 
 pd = fitdist(AOD_total(:),'Kernel','Kernel','epanechnikov');
