@@ -2,7 +2,7 @@
 clc;
 clear;
 
-data = load('NewData.mat');
+data = load('RIS_data_w_transmission.mat');
 data = data.s;
 
 %Set transmit power (in mW)
@@ -22,7 +22,7 @@ sigma2 = db2pow(sigma2dBm);
 
 distance = false;
 angle_distribution = false; % To get the AOD distribution 
-Pl_distribution = false;
+Pl_distribution = true;
 RatePathloss = false; % enable also Pl_distribution
 checksorting = false; % to check if the powers are sorted 
 RIS_angle_distribution = false;
@@ -119,7 +119,7 @@ end
 
 %% To get Path loss plot to understand if we gain by deploying RIS 
 % result: Not really as the PL through RIS is very high
-
+BS_UE_RxPower_tot = zeros(28,9);
 if Pl_distribution
 
     for t = 1:numel(fieldnames(data))
@@ -128,6 +128,7 @@ if Pl_distribution
         BS = t_instance.BS_1;
         [BS_UE_RxPower,BS_UE_Interact_Num] = GetBSUEAttenuation(BS,...
             t_instance.RIS_number);
+        BS_UE_RxPower_tot(:,t) = BS_UE_RxPower;
         BS_UE_RxPower_linear =  10.^(0.1 * BS_UE_RxPower);
         
         [BS_RIS_RxPower,BS_RIS_Interact_Num] = GetBSRISAttenuation(BS...
@@ -178,6 +179,7 @@ end
 %% To generate the complete channel
 
 RISCoeff = eye(64);
+%RISCoeff = diag(rand(1,64));
 % Loop over time instances
 for t = 1:9
     
