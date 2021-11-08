@@ -1,12 +1,12 @@
-function [h1,h2, h3, h4] = channelEval(t_instance,cond)
+function [h1,h2, h3, h4] = channelEval(t_instance,cond,NamingStruc)
 [h1, h2, h3, h4 ] = deal(0);
 if strcmp(cond, 'RIS_UE_Channel')
     
     M_H_Rx= 1; % Number of antennas in horizontal axis @ Rx
     M_V_Rx = 1; % Number of antennas in vertical axis @ Rx
 
-    M_H_Tx= 8; % Number of antennas in horizontal axis @ planar (Tx)
-    M_V_Tx = 8; % Number of antennas in vertical axis @ planar (Tx)
+    M_H_Tx= 16; % Number of antennas in horizontal axis @ planar (Tx)
+    M_V_Tx = 16; % Number of antennas in vertical axis @ planar (Tx)
 
     % Loop over all RIS deployed in the cell
     for R_idx = 1 : t_instance.RIS_number
@@ -33,8 +33,8 @@ elseif strcmp(cond, 'RIS_BS_Channel')
     M_H_Tx = 8; % Number of antennas in horizontal axis @ planar (Tx)
     M_V_Tx = 8; % Number of antennas in vertical axis @ planar (Tx)
     
-    M_H_Rx = 8; % Number of antennas in horizontal axis @ Rx
-    M_V_Rx = 8; % Number of antennas in vertical axis @ Rx
+    M_H_Rx = 16; % Number of antennas in horizontal axis @ Rx
+    M_V_Rx = 16; % Number of antennas in vertical axis @ Rx
    
     % Loop over all RIS deployed in the cell
     for R_idx = 1 : t_instance.RIS_number
