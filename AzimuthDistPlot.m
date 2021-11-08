@@ -7,7 +7,7 @@ function AzimuthDistPlot(BaseStation,RISnum)
 AOD_total = [];
 fn = fieldnames(BaseStation);
 
-%% Only paath between UE and Vehicles
+%% Only path between UE and Vehicles
 
 for Rx_idx = 2+RISnum:numel(fn)
    
