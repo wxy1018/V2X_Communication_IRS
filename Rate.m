@@ -87,7 +87,7 @@ plotsvnRIS = true;
 
 %% Distribution of AOD from RIS(Dynamic number of Rx is not important here)
 
-RIS_tot_angles = NaN(1,data.time1.RIS_number);
+RIS_tot_angles = NaN(1,RISnum);
 
 if RIS_angle_distribution
    
@@ -173,7 +173,7 @@ if angle_distribution
        
        for BS_idx = 1:BSnum
            eval(['BS = t_instance.BS_' num2str(BS_idx)]);
-           AzimuthDistPlot(BS,t_instance.RIS_number);
+           AzimuthDistPlot(BS,RISnum);
        end
        
     end
