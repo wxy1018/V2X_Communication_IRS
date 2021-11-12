@@ -7,7 +7,7 @@ function AzimuthDistPlot(BaseStation,RISnum)
 AOD_total = [];
 fn = fieldnames(BaseStation);
 
-%% Only path between UE and Vehicles
+%% Only path between BS and Vehicles
 
 for Rx_idx = 2+RISnum:numel(fn)
    
@@ -35,7 +35,7 @@ figure(2);
 histogram(AOD_total,60);
 hold on;
 
-%% To include the AOA values from RIS to BS
+%% To include the AOA values from RIS at BS
 for Rx_idx = 2:1+RISnum
    
     Rx = BaseStation.(fn{Rx_idx});
@@ -53,7 +53,7 @@ end
 
 figure(2);
 histogram(AOD_total,60);
-legend('Without RIS','With RIS');
+legend('Without RIS','Including RIS');
 
 pd = fitdist(AOD_total(:),'Kernel','Kernel','epanechnikov');
 x_values = -180:1:180;
